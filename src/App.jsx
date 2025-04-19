@@ -8,16 +8,17 @@ import { MeteorDemo } from './Pages/Homepage'
 function App() {
 
   return (
-    <>
+    <div>
       <Navbar/>
 
         <Routes>
           <Route path="/" element={<MeteorDemo/>} />
           <Route path="/Login" element={<ShineBorderDemo />} />
+          
         </Routes>
       
 
-    </>
+    </div>
   )
 }
 
