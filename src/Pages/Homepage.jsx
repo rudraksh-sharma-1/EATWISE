@@ -1,6 +1,7 @@
 import { Meteors } from "@/components/magicui/meteors";
 import { VideoText } from "@/components/magicui/video-text";
 import { BoxRevealDemo } from "@/Componenets/BoxRevealDemo";
+import ContactUs from "@/Componenets/ContactUs";
 import OrbitingCirclesDemo from "../Componenets/OrbitingCirclesDemo";
 import { MarqueeDemo } from "@/Componenets/MarqueeDemo";
 import React from "react";
@@ -22,6 +23,7 @@ export function MeteorDemo() {
       </div>
 
       <MarqueeDemo />
+      <ContactUs/>
     </>
   );
 }
