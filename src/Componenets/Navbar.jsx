@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
 import clsx from "clsx"; // optional utility for cleaner classnames
-import { RippleButton } from "@/components/magicui/ripple-button";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
 export default function Navbar() {
   const [show, setShow] = useState(true);
@@ -39,7 +39,7 @@ export default function Navbar() {
           <img
             src="https://i.postimg.cc/155sCgjV/logo.png"
             alt="LOGO"
-            
+            className="pt-4"
           />
           </Link>
         </div>
@@ -47,9 +47,8 @@ export default function Navbar() {
 
         {/* Middle: Empty space */}
         <div className="flex-1" />
-
         {/* Right: Sign In button */}
-        <RippleButton rippleColor="#0db9ff"><Link to='/Login'>SignIn</Link></RippleButton>
+        <InteractiveHoverButton className="text-white"><Link to='/Login'>SignIn</Link></InteractiveHoverButton>
       </div>
     </nav>
   );

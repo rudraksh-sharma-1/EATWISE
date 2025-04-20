@@ -14,8 +14,8 @@ export function MeteorDemo() {
         <Meteors number={100} />
       </div>
         <span className="relative h-[320px] w-full overflow-hidden flex justify-center items-center">
-        <h1 className="text-[8rem] font-bold tracking-tighter">
-                Eat <AuroraText>WISE</AuroraText>
+        <h1 className="font-serif text-[8rem] font-bold tracking-tighter">
+                Eat <AuroraText className="font-Rockbilly text-[4rem]">WISE</AuroraText>
             </h1>
         </span>
       </div>

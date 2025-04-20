@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import React from "react";
 import { BoxReveal } from "@/components/magicui/box-reveal";
 
@@ -19,7 +19,7 @@ export function BoxRevealDemo() {
       
 
       <BoxReveal boxColor={"#262626 "} duration={.8}>
-        <Button className="mt-[1.6rem] bg-[#000000]">Explore</Button>
+        <InteractiveHoverButton className="mt-[1.6rem] text-white">Explore</InteractiveHoverButton>
       </BoxReveal>
     </div>
   );

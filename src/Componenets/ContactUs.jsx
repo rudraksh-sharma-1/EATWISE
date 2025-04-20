@@ -63,7 +63,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#E1EEBC]">
+    <div className="min-h-screen bg-[#E1EEBC] pt-10">
       <div className="relative h-[400px] w-full overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7"
@@ -81,7 +81,7 @@ const ContactUs = () => {
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        <div className="max-w-2xl mx-auto bg-card rounded-lg shadow-sm p-6 md:p-8">
+      <div className="max-w-2xl mx-auto bg-[#E1EEBC] rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.6)] p-6 md:p-8">
           {submitted && (
             <div className="mb-6 p-4 bg-primary/10 text-[#328E6E] rounded-lg flex items-center">
               <FaCheckCircle className="mr-2" />
@@ -102,7 +102,7 @@ const ContactUs = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.fullName ? 'border-destructive' : 'border-input'}`}
+                  className={`w-full pl-10 pr-4 py-2 border border-black rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.fullName ? 'border-destructive' : ''}`}
                   placeholder="Your Full Name"
                 />
               </div>
@@ -125,7 +125,7 @@ const ContactUs = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-destructive' : 'border-input'}`}
+                  className={`w-full pl-10 pr-4 py-2 border border-black rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-destructive' : ''}`}
                   placeholder="Your Email Address"
                 />
               </div>
@@ -146,7 +146,7 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows="5"
-                className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.message ? 'border-destructive' : 'border-input'}`}
+                className={`w-full px-4 py-2 border border-black rounded-md focus:ring-2 focus:ring-primary focus:border-transparent ${errors.message ? 'border-destructive' : ''}`}
                 placeholder="Your Message"
               />
               {errors.message && (
@@ -154,7 +154,7 @@ const ContactUs = () => {
                   <FaExclamationCircle className="mr-1" /> {errors.message}
                 </p>
               )}
-              <p className="mt-1 text-sm text-accent">
+              <p className="mt-1 text-sm text-accent text-black">
                 {formData.message.length}/500 characters
               </p>
             </div>
@@ -169,15 +169,15 @@ const ContactUs = () => {
             </button>
           </form>
 
-          <div className="mt-8 pt-8 border-t border-input">
+          <div className="mt-8 pt-8 border-t border-input ">
             <h2 className="text-xl font-semibold text-[#328E6E] mb-4">Other Ways to Reach Us</h2>
-            <div className="grid md:grid-cols-2 gap-4 text-accent">
-              <div className="p-4 bg-secondary text-[#328E6E] rounded-md">
+            <div className="grid md:grid-cols-2 gap-4 text-accent ">
+              <div className="p-4 text-[#328E6E] rounded-md bg-[#E1EEBC]">
                 <h3 className="font-medium text-[#328E6E] mb-2">Business Hours</h3>
                 <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                 <p>Saturday: 10:00 AM - 4:00 PM</p>
               </div>
-              <div className="p-4 bg-secondary text-[#328E6E] rounded-md">
+              <div className="p-4 bg-[#E1EEBC] text-[#328E6E] rounded-md" >
                 <h3 className="font-medium text-[#328E6E] mb-2">Contact Info</h3>
                 <p>Email: info@example.com</p>
                 <p>Phone: +1 (555) 123-4567</p>
