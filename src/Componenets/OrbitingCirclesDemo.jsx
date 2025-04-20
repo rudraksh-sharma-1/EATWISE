@@ -4,13 +4,13 @@ import React from "react";
 export function OrbitingCirclesDemo() {
   return (
     <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
-      <OrbitingCircles iconSize={100}>
-        <Icons.whatsapp />
-        <Icons.notion />
-        <Icons.openai />
-        <Icons.googleDrive />
+      <OrbitingCircles iconSize={80} radius={200}>
+        <Icons.img1 />
+        <Icons.img2 />
+        <Icons.img3 />
+        <Icons.img4 />
       </OrbitingCircles>
-      <OrbitingCircles iconSize={50} radius={100} reverse speed={2}>
+      <OrbitingCircles iconSize={80} radius={100} reverse speed={2}>
         <Icons.whatsapp />
         <Icons.notion />
         <Icons.openai />
@@ -40,6 +40,18 @@ const Icons = {
   ),
   whatsapp: () => (
     <img src="https://i.postimg.cc/xd75HFh6/image-2025-04-19-170338544-removebg-preview.png" alt="BOOK" />
+  ),
+  img1: () => (
+    <img src="https://i.postimg.cc/7ZXLKhjs/image-2025-04-19-175105651-removebg-preview.png" alt="BOOK" />
+  ),
+  img2: () => (
+    <img src="https://i.postimg.cc/dV0FtBS6/image-2025-04-19-175034455-removebg-preview.png" alt="BOOK" />
+  ),
+  img3: () => (
+    <img src="https://i.postimg.cc/MpLCZ8BZ/image-2025-04-19-175018072-removebg-preview.png" alt="BOOK" />
+  ),
+  img4: () => (
+    <img src="https://i.postimg.cc/wvQ4NK1m/image-2025-04-19-174953140-removebg-preview.png" alt="BOOK" />
   ),
 };
 export default OrbitingCirclesDemo;

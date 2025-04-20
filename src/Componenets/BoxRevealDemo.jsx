@@ -6,7 +6,7 @@ export function BoxRevealDemo() {
   return (
     <div className="size-full items-center justify-center overflow-hidden p-8">
       <BoxReveal boxColor={"#262626 "} duration={0.8}>
-        <h1 className="text-[3.5rem] ">
+        <h1 className="text-[3.5rem] text-[#328E6E] font-bold">
         An innovative approach to your nutrition</h1>
       </BoxReveal>
 

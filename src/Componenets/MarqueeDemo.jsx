@@ -6,38 +6,38 @@ const reviews = [
   {
     name: "Jack",
     username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    body: "I told Eat Wise I wanted abs… it gave me broccoli and wisdom. Not mad though — I’ve dropped 3 kilos and I actually like quinoa now. Who am I?",
+    img: "https://i.postimg.cc/3JRPgzcT/Image2.png",
   },
   {
     name: "Jill",
     username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
+    body: "The AI looked at my body stats and said ‘you need help’ — then gave me the best dang diet plan I’ve ever seen. I feel seen. And slightly judged.",
+    img: "https://i.postimg.cc/6Qns8R14/Image1.png",
   },
   {
     name: "John",
     username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
+    body: "I asked for a vegetarian diet. Eat Wise said ‘say less’ and handed me a power-packed meal plan. Protein levels: unlocked. Mood: tofu-tastic.",
+    img: "https://i.postimg.cc/DZnNmNXR/Image3.png ",
   },
   {
     name: "Jane",
     username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jane",
+    body: "Eat Wise made me realize eating healthy doesn't mean eating sad. I got a diet plan, and a tiny nutritionist in my screen who doesn’t yell at me. Win-win.",
+    img: "https://i.postimg.cc/brML0VZy/Image6.png",
   },
   {
     name: "Jenny",
     username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
+    body: "PCOS-friendly and mom-approved! Eat Wise gave me a plan that’s easy, tasty, and doesn’t involve weird green sludge. 10/10 would recommend.",
+    img: "https://i.postimg.cc/NMsNQHhc/Image5.png ",
   },
   {
     name: "James",
     username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/james",
+    body: "I put in my stats and the AI said ‘say no more’. Now I’m eating better, sleeping better, and my fridge is no longer full of regrets. Thanks, Eat Wise!",
+    img: "https://i.postimg.cc/J0hd5BKq/Image4.png",
   },
 ];
 
@@ -80,8 +80,6 @@ export function MarqueeDemo() {
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
     </div>
   );
 }

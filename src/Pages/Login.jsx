@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import {
   Card,
   CardContent,
@@ -14,9 +15,11 @@ import { ShineBorder } from "@/components/magicui/shine-border";
 
 function ShineBorderDemo() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      <Card className="relative overflow-hidden max-w-[500px] w-full min-h-[500px] p-8">
-        <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+    <div>
+      
+    <div className="flex items-center justify-center min-h-screen px-4 bg-[#E1EEBC]">
+      <Card className="absolute overflow-hidden z-10 max-w-[500px] w-full min-h-[500px] p-8">
+        <ShineBorder shineColor={["#90C67C", "#67AE6E", "#328E6E", "#EF9651"]} />
         <CardHeader className="space-y-2">
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -39,6 +42,7 @@ function ShineBorderDemo() {
           <Button className="w-full h-12 text-lg">Sign In</Button>
         </CardFooter>
       </Card>
+    </div>
     </div>
   );
 }

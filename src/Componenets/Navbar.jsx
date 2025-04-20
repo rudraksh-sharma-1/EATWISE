@@ -28,17 +28,18 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        "sticky top-0 z-50 w-full px-6 py-4 border-b backdrop-blur-md bg-gray-950/50 transition-transform duration-300",
+        "sticky top-0 z-50 w-full px-6 py-4 border-b backdrop-blur-md bg-[#328E6E] transition-transform duration-300",
         show ? "translate-y-0" : "-translate-y-full"
       )}
     >
-      <div className="flex items-center justify-between">
+      <div className="top-0 flex items-center justify-between">
         {/* Left: Logo */}
-        <div className="text-xl font-bold size-10">
+        <div className="text-xl font-bold size-20">
           <Link to='/'>
           <img
-            src="https://i.postimg.cc/jjxvgj2Z/Full-Logo-Transparent-No-Buffer.png"
+            src="https://i.postimg.cc/155sCgjV/logo.png"
             alt="LOGO"
+            
           />
           </Link>
         </div>

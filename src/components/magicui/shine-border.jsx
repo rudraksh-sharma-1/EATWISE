@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * An animated background border effect component with configurable properties.
  */
 export function ShineBorder({
-  borderWidth = 1,
+  borderWidth = 5,
   duration = 14,
   shineColor = "#000000",
   className,
