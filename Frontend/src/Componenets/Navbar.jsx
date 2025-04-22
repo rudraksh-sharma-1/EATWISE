@@ -34,21 +34,23 @@ export default function Navbar() {
     >
       <div className="top-0 flex items-center justify-between">
         {/* Left: Logo */}
-        <div className="text-xl font-bold size-20">
-          <Link to='/'>
-          <img
-            src="https://i.postimg.cc/155sCgjV/logo.png"
-            alt="LOGO"
-            className="pt-4"
-          />
-          </Link>
-        </div>
+        {/* Left: Logo */}
+        <div className="text-xl font-bold">
+  <Link to='/'>
+    <img
+      src="https://i.postimg.cc/155sCgjV/logo.png"
+      alt="LOGO"
+      className="w-16 h-16 object-contain" // Adjust size here
+    />
+  </Link>
+</div>
+
 
 
         {/* Middle: Empty space */}
         <div className="flex-1" />
         {/* Right: Sign In button */}
-        <InteractiveHoverButton className="text-white"><Link to='/Login'>SignIn</Link></InteractiveHoverButton>
+        <Link to='/Signin'><InteractiveHoverButton className="text-white">SignIn</InteractiveHoverButton></Link>
       </div>
     </nav>
   );

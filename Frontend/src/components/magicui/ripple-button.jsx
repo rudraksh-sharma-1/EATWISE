@@ -55,7 +55,7 @@ export const RippleButton = React.forwardRef((
       <span className="pointer-events-none absolute inset-0">
         {buttonRipples.map((ripple) => (
           <span
-            className="absolute animate-rippling rounded-full bg-background opacity-30"
+            className="absolute rounded-full bg-background opacity-30"
             key={ripple.key}
             style={{
               width: `${ripple.size}px`,
@@ -64,6 +64,7 @@ export const RippleButton = React.forwardRef((
               left: `${ripple.x}px`,
               backgroundColor: rippleColor,
               transform: `scale(0)`,
+              animation: `rippling ${duration} ease-out`,
             }} />
         ))}
       </span>

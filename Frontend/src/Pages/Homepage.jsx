@@ -23,7 +23,7 @@ export function MeteorDemo() {
         <BoxRevealDemo>Typing Animation</BoxRevealDemo>
         <OrbitingCirclesDemo />
       </div>
-      <div className="bg-[#E1EEBC]">
+      <div className="bg-[#E1EEBC] pt-10">
       <MarqueeDemo />
       <ContactUs/>
       </div>

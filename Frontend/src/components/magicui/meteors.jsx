@@ -1,15 +1,15 @@
-"use client";;
+"use client";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 
 export const Meteors = ({
-  number = 20,
+  number = 50,
   minDelay = 0.2,
   maxDelay = 1.2,
   minDuration = 2,
   maxDuration = 10,
   angle = 215,
-  className
+  className,
 }) => {
   const [meteorStyles, setMeteorStyles] = useState([]);
 
@@ -29,18 +29,19 @@ export const Meteors = ({
   return (
     <>
       {[...meteorStyles].map((style, idx) => (
-        // Meteor Head
-        (<span
+        <span
           key={idx}
           style={{ ...style }}
           className={cn(
-            "pointer-events-none absolute size-0.5 rotate-[var(--angle)] animate-meteor rounded-full bg-green-600 shadow-[0_0_0_1px_#ffffff10]",
+            // Increased head size from `size-0.5` to `w-1.5 h-1.5`
+            "pointer-events-none absolute w-1 h-1 rotate-[var(--angle)] animate-meteor rounded-full bg-green-600/60 shadow-[0_0_0_1px_#ffffff10]",
             className
-          )}>
-          {/* Meteor Tail */}
+          )}
+        >
           <div
-            className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-green-600 to-transparent" />
-        </span>)
+            className="pointer-events-none absolute top-1/2 -z-10 h-0.5 w-[60px] -translate-y-1/2 bg-gradient-to-r from-green-600/50 to-transparent"
+          />
+        </span>
       ))}
     </>
   );
