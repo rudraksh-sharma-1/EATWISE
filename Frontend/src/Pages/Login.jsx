@@ -32,7 +32,7 @@ function Login() {
       Enter your credentials to access your account
     </CardDescription>
     <CardDescription className="text-xl">
-      Already have an account? <Link to='/Signin' className="text-[#EB5A3C]">Sign In!</Link>
+      Dont have an Account yet? <Link to='/Signin' className="text-[#EB5A3C]">Sign Up!</Link>
     </CardDescription>
   </CardHeader>
   <CardContent className="mt-4">

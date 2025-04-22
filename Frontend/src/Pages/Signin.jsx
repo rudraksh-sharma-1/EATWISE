@@ -27,7 +27,7 @@ function SignIn() {
       <Card className="relative z-10 max-w-[500px] w-full min-h-[500px] p-8 overflow-hidden bg-[#E1EEBC] shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-xl">
   <ShineBorder shineColor={["#90C67C", "#67AE6E", "#328E6E","#A0C878", "#DF9755", "#EB5A3C"]} />
   <CardHeader className="space-y-2">
-    <CardTitle className="text-3xl text-[#EB5A3C]">Sign In</CardTitle>
+    <CardTitle className="text-3xl text-[#EB5A3C]">Sign Up</CardTitle>
     <CardDescription className="text-xl">
       Enter your credentials to register
     </CardDescription>

@@ -35,12 +35,12 @@ export default function Navbar() {
       <div className="top-0 flex items-center justify-between">
         {/* Left: Logo */}
         {/* Left: Logo */}
-        <div className="text-xl font-bold">
-  <Link to='/'>
+        <div className="h-16 max-h-16 overflow-hidden flex items-center">
+  <Link to="/">
     <img
       src="https://i.postimg.cc/155sCgjV/logo.png"
       alt="LOGO"
-      className="w-16 h-16 object-contain" // Adjust size here
+      className="w-20 h-20 object-contain" // Increased from w-16 h-16
     />
   </Link>
 </div>
@@ -50,7 +50,7 @@ export default function Navbar() {
         {/* Middle: Empty space */}
         <div className="flex-1" />
         {/* Right: Sign In button */}
-        <Link to='/Signin'><InteractiveHoverButton className="text-white">SignIn</InteractiveHoverButton></Link>
+        <Link to='/Signin'><InteractiveHoverButton className="text-white">Sign Up</InteractiveHoverButton></Link>
       </div>
     </nav>
   );

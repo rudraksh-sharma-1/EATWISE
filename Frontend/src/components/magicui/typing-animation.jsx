@@ -1,9 +1,8 @@
 "use client";;
 import { cn } from "@/lib/utils";
-import React from "react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-
+import React from "react";
 export function TypingAnimation({
   children,
   className,
