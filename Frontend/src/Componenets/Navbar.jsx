@@ -1,22 +1,25 @@
 // components/Navbar.tsx
 "use client";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import clsx from "clsx"; // optional utility for cleaner classnames
+import clsx from "clsx";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import useAuthStore from "../store/AuthStore";
 
 export default function Navbar() {
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const navigate = useNavigate();
+
+  const { token, user, clearToken } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
       if (currentY < lastScrollY) {
-        setShow(true); // scrolling up (show navbar)
+        setShow(true);
       } else {
-        setShow(false); // scrolling down (hide navbar)
+        setShow(false);
       }
       setLastScrollY(currentY);
     };
@@ -24,6 +27,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  const handleLogout = () => {
+    clearToken();
+    navigate("/login");
+  };
 
   return (
     <nav
@@ -34,23 +42,42 @@ export default function Navbar() {
     >
       <div className="top-0 flex items-center justify-between">
         {/* Left: Logo */}
-        {/* Left: Logo */}
         <div className="h-16 max-h-16 overflow-hidden flex items-center">
-  <Link to="/">
-    <img
-      src="https://i.postimg.cc/155sCgjV/logo.png"
-      alt="LOGO"
-      className="w-20 h-20 object-contain" // Increased from w-16 h-16
-    />
-  </Link>
-</div>
-
-
+          <Link to="/">
+            <img
+              src="https://i.postimg.cc/155sCgjV/logo.png"
+              alt="LOGO"
+              className="w-20 h-20 object-contain"
+            />
+          </Link>
+        </div>
 
         {/* Middle: Empty space */}
         <div className="flex-1" />
-        {/* Right: Sign In button */}
-        <Link to='/Signin'><InteractiveHoverButton className="text-white">Sign Up</InteractiveHoverButton></Link>
+
+        {/* Right: User or Sign Up */}
+        {!token ? (
+          <Link to="/Signin">
+            <InteractiveHoverButton className="text-white">Sign Up</InteractiveHoverButton>
+          </Link>
+        ) : (
+          <div className="relative group">
+            <button className="text-white text-lg font-semibold">
+              {user?.fullName || "User"} ▼
+            </button>
+            <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
+              <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

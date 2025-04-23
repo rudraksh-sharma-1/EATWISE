@@ -1,0 +1,49 @@
+import User from '../Models/User.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
+
+const generateToken = (user) => {
+    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+};
+
+export const registerUser = async (req, res) => {
+    const { fullName, email, password, weight, height, activity } = req.body;
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) return res.status(400).json({ message: 'User already exists' });
+
+        const user = new User({ fullName, email, password, weight, height, activity });
+        await user.save();
+
+        const token = generateToken(user);
+        res.status(201).json({ user, token });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+        const token = generateToken(user);
+        res.status(200).json({ user, token });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
