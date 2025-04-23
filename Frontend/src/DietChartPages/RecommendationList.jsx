@@ -11,35 +11,29 @@ const RecommendationList = ({ recommendations }) => {
     <div>
       <h2>Personalized Nutrition Recommendations</h2>
 
-      <div>
-        <h3>Caloric and Macronutrient Needs</h3>
-        <p><strong>Daily Caloric Needs:</strong> {caloric_needs.toFixed(2)} kcal</p>
-        <ul>
-          <li><strong>Protein:</strong> {macronutrient_distribution.protein.toFixed(2)}g</li>
-          <li><strong>Carbs:</strong> {macronutrient_distribution.carbs.toFixed(2)}g</li>
-          <li><strong>Fat:</strong> {macronutrient_distribution.fat.toFixed(2)}g</li>
-        </ul>
-      </div>
+      <h3>Caloric and Macronutrient Needs</h3>
+      <p><strong>Daily Caloric Needs:</strong> {caloric_needs} kcal</p>
+      <p><strong>Protein:</strong> {macronutrient_distribution.protein}g</p>
+      <p><strong>Carbs:</strong> {macronutrient_distribution.carbs}g</p>
+      <p><strong>Fat:</strong> {macronutrient_distribution.fat}g</p>
 
-      <div>
-        <h3>Meal Plan</h3>
-        {Object.entries(recommended_foods).map(([meal, foods]) => (
-          <div key={meal}>
-            <h4 style={{ textTransform: "capitalize" }}>{meal}</h4>
-            <ul>
-              {foods.map((item, idx) => (
-                <li key={idx}>
-                  <strong>{item.food}</strong> — 
-                  {item.calories?.toFixed(2)} kcal, 
-                  Protein: {item.protein}g, 
-                  Carbs: {item.carbs}g, 
-                  Fat: {item.fat}g
+      <h3>Meal Plan</h3>
+      {["breakfast", "lunch", "dinner"].map((mealType) => (
+        <div key={mealType}>
+          <h4>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</h4>
+          <ul>
+            {recommended_foods[mealType] && recommended_foods[mealType].length > 0 ? (
+              recommended_foods[mealType].map((item, index) => (
+                <li key={index}>
+                  <strong>{item.food}</strong> — {item.calories} kcal, Protein: {item.protein}g, Carbs: {item.carbs}g, Fat: {item.fat}g
                 </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+              ))
+            ) : (
+              <li>No recommendations for this meal</li>
+            )}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };

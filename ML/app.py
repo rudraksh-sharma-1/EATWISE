@@ -8,43 +8,35 @@ import random
 app = Flask(__name__)
 CORS(app)
 
-# USDA File Combination Starts Here
-foundation = pd.read_csv("foundation_food.csv")
-food = pd.read_csv("food.csv")
-nutrients = pd.read_csv("nutrient.csv")
-food_nutrients = pd.read_csv("food_nutrient.csv")
+# Load only the generated Indian food dataset
+generated_file = os.path.join(os.path.dirname(__file__), "indian_food_data.csv")
+generated_df = pd.read_csv(generated_file)
+generated_df = pd.read_csv(generated_file)
 
-# Get only macro nutrients
-required_nutrients = ['Energy', 'Protein', 'Carbohydrate, by difference', 'Total lipid (fat)']
-nutrient_ids = nutrients[nutrients['name'].isin(required_nutrients)][['id', 'name']]
+# ✅ Drop exact duplicate rows
+generated_df.drop_duplicates(inplace=True)
 
-# Merge nutrient names with values
-merged = pd.merge(food_nutrients, nutrient_ids, left_on='nutrient_id', right_on='id')
+# ✅ Drop duplicate food names (keep the first unique one)
+generated_df.drop_duplicates(subset="food", keep="first", inplace=True)
 
-# Pivot nutrients to columns
-pivot = merged.pivot_table(index='fdc_id', columns='name', values='amount').reset_index()
+# 🔁 Optional: Reset index for clean dataframe
+generated_df.reset_index(drop=True, inplace=True)
 
-# Add food descriptions
-merged_food = pd.merge(pivot, food[['fdc_id', 'description']], on='fdc_id')
+# Optional: Add source tag for future tracking
+generated_df["source"] = "indian"
 
-# Rename and clean
-merged_food.rename(columns={
-    'Energy': 'calories',
-    'Protein': 'protein',
-    'Carbohydrate, by difference': 'carbs',
-    'Total lipid (fat)': 'fat',
-    'description': 'food'
-}, inplace=True)
+# Use only the generated dataset for now
+combined_df = generated_df.copy()
 
-# Drop missing and reset index
-merged_food.dropna(subset=['calories', 'protein', 'carbs', 'fat'], inplace=True)
-merged_food.reset_index(drop=True, inplace=True)
+# Clean and prepare the data
+combined_df.drop_duplicates(subset="food", keep="first", inplace=True)
+combined_df.dropna(inplace=True)
+combined_df.reset_index(drop=True, inplace=True)
 
-# Final data for recommendations
-data = merged_food[["food", "calories", "protein", "carbs", "fat"]]
-data.to_csv("usda_cleaned_food_data.csv", index=False)
-# USDA File Combination Ends Here
+# Final filtered dataset
+data = combined_df[["food", "calories", "protein", "carbs", "fat", "meal_type"]]
 
+# ----------------- Calorie Calculation -----------------
 def calculate_calories(age, gender, weight, height, activity_level):
     if gender == "male":
         bmr = 10 * weight + 6.25 * height - 5 * age + 5
@@ -60,6 +52,7 @@ def calculate_calories(age, gender, weight, height, activity_level):
     }
     return bmr * activity_multipliers.get(activity_level.lower(), 1.2)
 
+# ----------------- API Endpoint -----------------
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
     user_data = request.json
@@ -71,7 +64,7 @@ def get_recommendations():
         activity_level=user_data["activityLevel"]
     )
 
-    # Adaptive macro ratios based on activity level
+    # Adaptive macro distribution
     activity = user_data["activityLevel"].lower()
     if activity == "extra active":
         protein_ratio = 0.45
@@ -84,43 +77,48 @@ def get_recommendations():
         carb_ratio = 0.4
     fat_ratio = 1.0 - protein_ratio - carb_ratio
 
+    # Calorie split across meals
     meal_ratios = {
         "breakfast": 0.25,
         "lunch": 0.4,
         "dinner": 0.35
     }
 
-    used_indices = set()
     meals = {}
 
     for meal, ratio in meal_ratios.items():
-        # Sample a random subset of food items to inject variability
+        protein_target = daily_calories * protein_ratio * ratio / 4
+        carb_target = daily_calories * carb_ratio * ratio / 4
+        fat_target = daily_calories * fat_ratio * ratio / 9
+
         sample_size = 100 if daily_calories > 2200 else 80
-        subset = data.sample(n=sample_size, random_state=random.randint(1, 9999)).reset_index(drop=True)
+        attempts = 0
+        success = False
 
-        protein_target = daily_calories * protein_ratio * ratio
-        carb_target = daily_calories * carb_ratio * ratio
-        fat_target = daily_calories * fat_ratio * ratio
+        while attempts < 3 and not success:
+            meal_filtered = data[data["meal_type"] == meal]
+            if len(meal_filtered) < 10:
+                  meal_filtered = data  # fallback if not enough options
+            subset = meal_filtered.sample(n=min(sample_size, len(meal_filtered)), random_state=random.randint(1, 9999)).reset_index(drop=True)
 
-        nutrients = subset[['protein', 'carbs', 'fat']].values
-        cost = subset['calories'].values
+            nutrients = subset[['protein', 'carbs', 'fat']].values
+            cost = subset['calories'].values
 
-        A_eq = [
-            nutrients[:, 0],
-            nutrients[:, 1],
-            nutrients[:, 2],
-        ]
-        b_eq = [protein_target / 4, carb_target / 4, fat_target / 9]
-        bounds = [(0, None) for _ in range(len(cost))]
+            A_eq = [nutrients[:, 0], nutrients[:, 1], nutrients[:, 2]]
+            b_eq = [protein_target, carb_target, fat_target]
+            bounds = [(0, None) for _ in range(len(cost))]
 
-        res = linprog(cost, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='highs')
+            res = linprog(cost, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='highs')
+            success = res.success
+            attempts += 1
 
-        if res.success:
+        if success:
             selected = res.x
             chosen_indices = [i for i, qty in enumerate(selected) if qty > 0]
             meals[meal] = subset.iloc[chosen_indices].to_dict(orient='records')
         else:
-            meals[meal] = []
+            fallback = subset.sort_values(by="protein", ascending=False).head(3)
+            meals[meal] = fallback.to_dict(orient='records')
 
     weekly_distribution = [
         {
