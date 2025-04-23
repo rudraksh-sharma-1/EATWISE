@@ -1,5 +1,6 @@
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import React from "react";
+import { Link } from "react-router-dom";
 import { BoxReveal } from "@/components/magicui/box-reveal";
 
 export function BoxRevealDemo() {
@@ -17,10 +18,7 @@ export function BoxRevealDemo() {
       </BoxReveal>
 
       
-
-      <BoxReveal boxColor={"#262626 "} duration={.8}>
-        <InteractiveHoverButton className="mt-[1.6rem] text-white">Explore</InteractiveHoverButton>
-      </BoxReveal>
+      <Link to="/dietchart" className="text-[#EB5A3C]"><InteractiveHoverButton className="mt-[1.6rem] text-white">Explore</InteractiveHoverButton></Link>
     </div>
   );
 }

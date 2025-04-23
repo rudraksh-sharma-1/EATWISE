@@ -91,7 +91,7 @@ const ContactUs = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6 w-full">
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-[#328E6E] mb-2">
+              <label htmlFor="fullName" className="block text-xl font-medium text-[#328E6E] mb-2">
                 Full Name
               </label>
               <div className="relative">
@@ -114,7 +114,7 @@ const ContactUs = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[#328E6E] mb-2">
+              <label htmlFor="email" className="block text-xl font-medium text-[#328E6E] mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -137,7 +137,7 @@ const ContactUs = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-[#328E6E] mb-2">
+              <label htmlFor="message" className="block text-xl font-medium text-[#328E6E] mb-2">
                 Message
               </label>
               <textarea
