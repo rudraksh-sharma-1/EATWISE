@@ -72,6 +72,7 @@ const CreateBlog = () => {
       );
       console.log("Success:", res.data);
       setIsDialogOpen(true);
+      
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
       alert("Failed to create blog");

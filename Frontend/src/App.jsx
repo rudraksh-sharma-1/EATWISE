@@ -14,6 +14,7 @@ import MainPage from "./DietChartPages/MainPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import useAuthStore from "./Store/AuthStore";
 import LoginRequiredPopup from "./Componenets/LoginRequiredPopup";
+import BlogDetailPage from "./Pages/IndividualBlog";
 function App() {
 
   useEffect(() => {
@@ -47,10 +48,15 @@ function App() {
           path="/blog"
           element={
             <ProtectedRoute>
-              <Blog />
+              <Blog/>
             </ProtectedRoute>
           }
         />
+        <Route path="/blogs/:id" element={
+          <ProtectedRoute>
+            <BlogDetailPage/>
+          </ProtectedRoute>
+          } />
         <Route path="/dietchart" element={<MainPage />} />
       </Routes>
 

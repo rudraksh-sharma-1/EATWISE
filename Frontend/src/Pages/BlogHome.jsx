@@ -1,33 +1,34 @@
 "use client";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link} from "react-router-dom";
 import { LineShadowText } from "@/components/magicui/line-shadow-text";
 import { Card, CardContent } from "@/components/ui/card";
 import { RetroGrid } from "@/components/magicui/retro-grid";
 import { Heart } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import axios from "axios";
+import moment from "moment";
+
 
 const BlogHomePage = () => {
-  const posts = [
-    {
-      title: "Vitamin rich fruits & veggies",
-      subtitle:
-        "Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading....",
-      date: "Mar 22, 2023",
-      readTime: "2 min read",
-      likes: 2,
-      image: "/images/fruits-veggies.jpg",
-    },
-    {
-      title: "A healthy alternative to fries",
-      subtitle:
-        "Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading....",
-      date: "Mar 22, 2023",
-      readTime: "1 min read",
-      likes: 3,
-      image: "/images/healthy-fries.jpg",
-    },
-  ];
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/api/blogs/all"); // Replace with deployed URL if needed
+        setPosts(res.data);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  
 
   return (
     <div className="relative min-h-screen bg-[#E1EEBC] text-white px-4 py-10">
@@ -68,33 +69,35 @@ const BlogHomePage = () => {
 
       {/* Blog Posts */}
       <div className="mt-10 space-y-8 max-w-4xl mx-auto z-10 relative">
-        {posts.map((post, index) => (
-          <Card
-            key={index}
+        {posts.map((post) => (
+          <Link key={post._id} to={`/blogs/${post._id}`} className="flex flex-col md:flex-row bg-[#E1EEBC] border-[#444] shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-xl overflow-hidden">
+            <Card
+            key={post._id}
             className="flex flex-col md:flex-row bg-[#E1EEBC] border-[#444] shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-xl overflow-hidden"
           >
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 p-2">
               <img
-                src={post.image}
+                src={post.featuredImage}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="rounded-lg w-auto h-auto object-fill"
               />
             </div>
             <CardContent className="md:w-1/2 p-6 text-black space-y-3">
               <div className="text-sm text-black/60">
-                Admin • {post.date} • {post.readTime}
+                {post.author} • {moment(post?.createdAt).format('DD-MM-YYYY')} • ~{moment(post?.createdAt).format('HH:mm')}
               </div>
               <h3 className="text-xl font-semibold text-black">{post.title}</h3>
-              <p className="text-sm text-black/80">{post.subtitle}</p>
+              <p className="text-sm text-black/80">{post.preview}</p>
               <div className="flex items-center text-xs text-black/50 gap-4 pt-2">
                 <span>0 views</span>
                 <span>0 comments</span>
                 <span className="flex items-center gap-1">
-                  {post.likes} <Heart className="w-4 h-4 text-[color:#EB5A3C]" />
+                  0 <Heart className="w-4 h-4 text-[color:#EB5A3C]" />
                 </span>
               </div>
             </CardContent>
           </Card>
+          </Link>
         ))}
       </div>
     </div>

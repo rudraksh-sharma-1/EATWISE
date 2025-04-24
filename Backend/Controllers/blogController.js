@@ -51,7 +51,7 @@
         try {
             const blogs = await Blog.find().populate("author","fullName");
         
-            const blogList = blogs.map(blog => {
+              const blogList = blogs.map(blog => {
               const safeContent = blog.blogContent || ""; // Ensure it’s a string
               const decodedContent = decode(safeContent); // decode HTML entities
               const plainText = striptags(decodedContent); // remove HTML tags
@@ -72,3 +72,31 @@
         }
       };
       
+      // Get a single blog post by ID
+export const getBlogById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await Blog.findById(id).populate("author", "fullName");
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+      const safeContent = blog.blogContent || ""; // Ensure it’s a string
+      const decodedContent = decode(safeContent); // decode HTML entities
+  
+
+    res.status(200).json({
+      _id: blog._id,
+      title: blog.title,
+      category: blog.category,
+      blogContent: decodedContent,
+      featuredImage: blog.featuredImage,
+      author: blog.author.fullName,
+      createdAt: blog.createdAt,
+    });
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
