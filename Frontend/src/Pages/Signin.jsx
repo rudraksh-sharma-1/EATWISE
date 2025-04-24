@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import axios from "axios"; // make sure this is the axios instance with backend URL
-import useAuthStore from "../Store/AuthStore"; // Zustand token store
+import axios from "axios";
+import useAuthStore from "../Store/AuthStore";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import {
   Card,
@@ -16,15 +15,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ShineBorder } from "@/components/magicui/shine-border";
 import { Particles } from "@/components/magicui/particles";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// other imports...
-// Card, Input, Label, etc.
 
 function SignIn() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  /* const setToken = useAuthStore((state) => state.setToken); */
-
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -38,13 +35,21 @@ function SignIn() {
   const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullName.trim()) return toast.error("Full name is required");
-    if (!validateEmail(formData.email)) return toast.error("Invalid email format");
-    if (formData.password.length < 6) return toast.error("Password must be at least 6 characters");
 
+    if (!formData.fullName.trim()) {
+      toast.error("Full name is required!");
+      return;
+    }
+    if (!validateEmail(formData.email)) {
+      toast.error("Invalid email format!");
+      return;
+    }
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters!");
+      return;
+    }
     if (formData.password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
@@ -58,12 +63,12 @@ function SignIn() {
         password,
       });
 
-      /* const { token } = res.data;
-      setToken(token); */
-      toast.success("Signup successful!");
-      navigate("/login"); // or wherever you want to go after login
+      toast.success("Successfully Signed Up!");
+      navigate("/login");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Signup failed");
+      toast.error(
+        err.response?.data?.message || "Signup failed. Try again later."
+      );
     }
   };
 
@@ -86,9 +91,6 @@ function SignIn() {
         />
         <CardHeader className="space-y-2">
           <CardTitle className="text-3xl text-[#EB5A3C]">Sign Up</CardTitle>
-          {/* <CardDescription className="text-xl">
-            Enter your credentials to register
-          </CardDescription> */}
           <CardDescription className="text-xl">
             Already have an account?{" "}
             <Link to="/login" className="text-[#EB5A3C]">
@@ -148,15 +150,13 @@ function SignIn() {
               <Input
                 id="confirmPassword"
                 type="password"
-                 placeholder="*******"
+                placeholder="*******"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="h-12 text-base border-black"
               />
             </div>
-            <InteractiveHoverButton type="submit">
-              Sign Up
-            </InteractiveHoverButton>
+            <InteractiveHoverButton type="submit">Sign Up</InteractiveHoverButton>
           </form>
         </CardContent>
       </Card>

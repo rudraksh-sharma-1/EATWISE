@@ -1,12 +1,11 @@
-import React from "react";
-import { useEffect } from "react";  
+import React, { useEffect } from "react";
 import Navbar from "./Componenets/Navbar";
 import Login from "./Pages/Login";
 import SignIn from "./Pages/Signin";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer } from 'react-toastify';
 import BlogHome from "./Pages/BlogHome";
 import Blog from "./Pages/Blog";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { MeteorDemo } from "./Pages/Homepage";
 import Footer from "./Componenets/Footer";
 import AuthRedirect from "./utils/AuthRedirect";
@@ -15,14 +14,20 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import useAuthStore from "./Store/AuthStore";
 import LoginRequiredPopup from "./Componenets/LoginRequiredPopup";
 import BlogDetailPage from "./Pages/IndividualBlog";
+
 function App() {
+  const location = useLocation(); // Hook to track route changes
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top whenever the route changes
+  }, [location]);
 
   useEffect(() => {
     useAuthStore.getState().initialize();
   }, []);
+
   return (
     <div>
-      <Toaster position="top-right" reverseOrder={false} />
       <Navbar />
 
       <Routes>
@@ -56,13 +61,25 @@ function App() {
           <ProtectedRoute>
             <BlogDetailPage/>
           </ProtectedRoute>
-          } />
+        } />
         <Route path="/dietchart" element={<MainPage />} />
       </Routes>
 
       <LoginRequiredPopup />
 
       <Footer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

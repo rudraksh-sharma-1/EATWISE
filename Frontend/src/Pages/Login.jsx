@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import {
   Card,
@@ -18,7 +20,7 @@ import useAuthStore from "../Store/AuthStore";
 
 function Login() {
   const navigate = useNavigate();
-  const { token, user, setToken, setUser, clearToken } = useAuthStore();
+  const { setToken, setUser } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +31,11 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) return toast.error("Invalid email format");
+    if (!validateEmail(email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+
     try {
       const res = await fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
@@ -41,26 +47,28 @@ function Login() {
 
       const data = await res.json();
       if (!res.ok) {
+        toast.error(data.message || "Login failed");
         setErrorMsg(data.message || "Login failed");
         return;
       }
 
-      setToken(data.token); // save token from backend
-      setUser(data.user); // save user { username, email, etc. }
-      navigate("/"); // Redirect to home or dashboard
+      setToken(data.token);
+      setUser(data.user);
+      toast.success("Login successful!");
+      navigate("/");
+
     } catch (error) {
+      toast.error("Something went wrong. Please try again.");
       setErrorMsg("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div className="relative flex items-center justify-center min-h-screen px-4 bg-[#E1EEBC] overflow-hidden">
-      {/* Particles Background */}
       <div className="absolute inset-0 z-0">
         <Particles />
       </div>
 
-      {/* Login Card */}
       <Card className="relative z-10 max-w-[500px] w-full min-h-[500px] p-8 overflow-hidden bg-[#E1EEBC] shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-xl">
         <ShineBorder
           shineColor={[

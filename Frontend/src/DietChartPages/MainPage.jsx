@@ -21,10 +21,10 @@ function MainPage() {
     <div className="absolute inset-0 w-full">
         <RetroGrid />
       </div>
-    <h1 className="text-black text-8xl font-bold relative z-10 text-center leading-tight">
+    <h1 className="text-[color:#328E6E] text-6xl font-bold relative z-10 text-center leading-tight">
       <span>Nutrition</span>
       <br />
-      <LineShadowText className="text-[color:#328E6E]">Planner</LineShadowText>
+      <LineShadowText className="text-9xl text-[color:#328E6E]">Planner</LineShadowText>
     </h1>
   </div>
   <UserInputForm onReceiveData={handleRecommendations} />
