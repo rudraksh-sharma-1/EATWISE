@@ -60,6 +60,11 @@ const RecommendationList = ({ recommendations }) => {
         <strong>Daily Caloric Needs:</strong>{" "}
         <span className="text-[#328E6E]">{caloric_needs} kcal</span>
       </p>
+      <p style={{ color: "gray", fontSize: "14px" }}>
+  *Your recommended intake is based on your body’s energy needs, activity level, and BMI.
+  {` ${recommendations.caloric_needs} kcal may look high, but it is suitable for your body and lifestyle to stay healthy.`}
+</p>
+
 
       <div className="flex justify-center gap-16 flex-wrap">
         {["protein", "carbs", "fat"].map((key) => (

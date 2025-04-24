@@ -13,16 +13,6 @@ import {
   Label,
 } from "recharts";
 
-const chartData = [
-  { day: "Mon", protein: 80, carbs: 150, fat: 60 },
-  { day: "Tue", protein: 90, carbs: 140, fat: 70 },
-  { day: "Wed", protein: 85, carbs: 155, fat: 65 },
-  { day: "Thu", protein: 95, carbs: 160, fat: 75 },
-  { day: "Fri", protein: 88, carbs: 148, fat: 68 },
-  { day: "Sat", protein: 92, carbs: 152, fat: 70 },
-  { day: "Sun", protein: 86, carbs: 149, fat: 66 },
-];
-
 const chartConfig = {
   protein: {
     label: "Protein",
@@ -38,7 +28,7 @@ const chartConfig = {
   },
 };
 
-const WeeklyCharts = () => {
+const WeeklyCharts = ({ data }) => {
   return (
     <div className="my-14 mx-auto max-w-[1600px]">
       {/* Title */}
@@ -49,7 +39,7 @@ const WeeklyCharts = () => {
       {/* Bigger Chart */}
       <ResponsiveContainer width="100%" height={700}>
         <BarChart
-          data={chartData}
+          data={data}
           margin={{ top: 30, right: 40, left: 40, bottom: 30 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -70,9 +60,7 @@ const WeeklyCharts = () => {
             }}
           />
 
-          <YAxis
-            tick={{ fill: "#328E6E", fontSize: 22, fontWeight: 600 }}
-          >
+          <YAxis tick={{ fill: "#328E6E", fontSize: 22, fontWeight: 600 }}>
             <Label
               value="Grams"
               angle={-90}

@@ -8,32 +8,21 @@ import random
 app = Flask(__name__)
 CORS(app)
 
-# Load only the generated Indian food dataset
+# ----------------- Load Indian Food Dataset -----------------
 generated_file = os.path.join(os.path.dirname(__file__), "indian_food_data.csv")
 generated_df = pd.read_csv(generated_file)
-generated_df = pd.read_csv(generated_file)
 
-# ✅ Drop exact duplicate rows
+# Clean dataset
 generated_df.drop_duplicates(inplace=True)
-
-# ✅ Drop duplicate food names (keep the first unique one)
 generated_df.drop_duplicates(subset="food", keep="first", inplace=True)
-
-# 🔁 Optional: Reset index for clean dataframe
 generated_df.reset_index(drop=True, inplace=True)
-
-# Optional: Add source tag for future tracking
 generated_df["source"] = "indian"
 
-# Use only the generated dataset for now
+# Final dataset
 combined_df = generated_df.copy()
-
-# Clean and prepare the data
 combined_df.drop_duplicates(subset="food", keep="first", inplace=True)
 combined_df.dropna(inplace=True)
 combined_df.reset_index(drop=True, inplace=True)
-
-# Final filtered dataset
 data = combined_df[["food", "calories", "protein", "carbs", "fat", "meal_type"]]
 
 # ----------------- Calorie Calculation -----------------
@@ -50,34 +39,52 @@ def calculate_calories(age, gender, weight, height, activity_level):
         "very active": 1.725,
         "extra active": 1.9,
     }
-    return bmr * activity_multipliers.get(activity_level.lower(), 1.2)
+    tdee = bmr * activity_multipliers.get(activity_level.lower(), 1.2)
+    return tdee
 
 # ----------------- API Endpoint -----------------
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
     user_data = request.json
+
+    age = int(user_data["age"])
+    gender = user_data["gender"]
+    weight = float(user_data["weight"])
+    height = float(user_data["height"])
+    activity_level = user_data["activityLevel"]
+
     daily_calories = calculate_calories(
-        age=int(user_data["age"]),
-        gender=user_data["gender"],
-        weight=float(user_data["weight"]),
-        height=float(user_data["height"]),
-        activity_level=user_data["activityLevel"]
+        age=age,
+        gender=gender,
+        weight=weight,
+        height=height,
+        activity_level=activity_level
     )
 
-    # Adaptive macro distribution
-    activity = user_data["activityLevel"].lower()
-    if activity == "extra active":
-        protein_ratio = 0.45
-        carb_ratio = 0.35
-    elif activity == "sedentary":
-        protein_ratio = 0.35
-        carb_ratio = 0.45
-    else:
-        protein_ratio = 0.4
-        carb_ratio = 0.4
-    fat_ratio = 1.0 - protein_ratio - carb_ratio
+    # Calculate BMI
+    bmi = weight / ((height / 100) ** 2)
 
-    # Calorie split across meals
+    # Macronutrient ratios based on BMI
+    if bmi >= 30:
+        protein_ratio = 0.45
+        carb_ratio = 0.30
+        fat_ratio = 0.25
+    elif bmi < 18.5:
+        protein_ratio = 0.35
+        carb_ratio = 0.50
+        fat_ratio = 0.15
+    else:
+        if activity_level.lower() == "extra active":
+            protein_ratio = 0.45
+            carb_ratio = 0.35
+        elif activity_level.lower() == "sedentary":
+            protein_ratio = 0.35
+            carb_ratio = 0.45
+        else:
+            protein_ratio = 0.40
+            carb_ratio = 0.40
+        fat_ratio = 1.0 - protein_ratio - carb_ratio
+
     meal_ratios = {
         "breakfast": 0.25,
         "lunch": 0.4,
@@ -96,9 +103,9 @@ def get_recommendations():
         success = False
 
         while attempts < 3 and not success:
-            meal_filtered = data[data["meal_type"] == meal]
+            meal_filtered = data[data["meal_type"].str.contains(meal, case=False, na=False)]
             if len(meal_filtered) < 10:
-                  meal_filtered = data  # fallback if not enough options
+                meal_filtered = data
             subset = meal_filtered.sample(n=min(sample_size, len(meal_filtered)), random_state=random.randint(1, 9999)).reset_index(drop=True)
 
             nutrients = subset[['protein', 'carbs', 'fat']].values
@@ -122,12 +129,12 @@ def get_recommendations():
 
     weekly_distribution = [
         {
-            "day": day,
+            "day": f"Week {i+1}",
             "protein": round((daily_calories * protein_ratio) / 4 + random.uniform(-5, 5), 2),
             "carbs": round((daily_calories * carb_ratio) / 4 + random.uniform(-5, 5), 2),
             "fat": round((daily_calories * fat_ratio) / 9 + random.uniform(-2, 2), 2)
         }
-        for day in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        for i in range(7)
     ]
 
     response = {
