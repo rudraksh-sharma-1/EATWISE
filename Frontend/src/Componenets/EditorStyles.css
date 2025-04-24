@@ -1,0 +1,27 @@
+/* Toolbar and surrounding styles */
+.ck.ck-toolbar {
+    background-color: #E1EEBC !important;
+    border: 1px solid black !important;
+  }
+  
+  .ck.ck-toolbar .ck.ck-button:hover,
+  .ck.ck-toolbar .ck.ck-button:focus,
+  .ck.ck-toolbar .ck.ck-button.ck-on {
+    background-color: #E1EEBC !important;
+    box-shadow: none !important;
+  }
+  
+  .ck.ck-editor__editable {
+    background-color: #E1EEBC !important;
+    border-bottom: 1px solid black !important;
+    border-right: 1px solid black !important;
+    border-left: 1px solid black !important;
+  }
+  
+  /* Remove default focus and hover styles */
+  /* .ck.ck-editor__editable:focus,
+  .ck.ck-editor__editable:hover {
+    background-color: #E1EEBC !important;
+    outline: none !important;
+  } */
+  
