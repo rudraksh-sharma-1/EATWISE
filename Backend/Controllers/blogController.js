@@ -55,7 +55,7 @@
               const safeContent = blog.blogContent || ""; // Ensure it’s a string
               const decodedContent = decode(safeContent); // decode HTML entities
               const plainText = striptags(decodedContent); // remove HTML tags
-        
+              
               return {
                 _id: blog._id,
                 title: blog.title,

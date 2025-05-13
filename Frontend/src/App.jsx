@@ -18,6 +18,7 @@ import AdminPanel from "./Pages/AdminPanel";
 
 function App() {
   const location = useLocation(); // Hook to track route changes
+  const {isAdmin} = useAuthStore();
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top whenever the route changes
@@ -47,7 +48,9 @@ function App() {
             </AuthRedirect>
           }
         />
-        <Route path="/admin/*" element={<AdminPanel />} />
+        {isAdmin ?(
+          <Route path="/admin/*" element={<AdminPanel />} />
+        ):("")}
         <Route path="/bloghome" element={<BlogHome />} />
         <Route path="/blog"
           element={

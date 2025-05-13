@@ -11,7 +11,7 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
 
-  const { token, user, clearToken } = useAuthStore();
+  const { token, user, clearToken, isAdmin } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +54,7 @@ export default function Navbar() {
 
         {/* Middle: Empty space */}
         <div className="flex-1" />
-
+        
         {/* Right: User or Sign Up */}
         {!token ? (
           <Link to="/Signin">
@@ -69,6 +69,11 @@ export default function Navbar() {
               <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
                 Profile
               </Link>
+              {isAdmin ? (
+                <Link to="/admin/*" className="block px-4 py-2 hover:bg-gray-100">
+                Admin Pannel
+              </Link>
+              ):("")}
               <button
                 onClick={handleLogout}
                 className="w-full text-left px-4 py-2 hover:bg-gray-100"

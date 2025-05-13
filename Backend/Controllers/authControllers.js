@@ -38,6 +38,7 @@ export const registerUser = async (req, res) => {
         activity,
       });
       await user.save();
+      
 
       const token = generateToken(user);
      return res.status(201).json({ user, token });

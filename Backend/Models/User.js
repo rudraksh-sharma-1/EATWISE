@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    type: { type: String, enum: ['user', 'admin'], default: 'user', required: false },   
     blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
     weight: { type: Number },
     height: { type: Number },
