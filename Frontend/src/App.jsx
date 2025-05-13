@@ -14,6 +14,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import useAuthStore from "./Store/AuthStore";
 import LoginRequiredPopup from "./Componenets/LoginRequiredPopup";
 import BlogDetailPage from "./Pages/IndividualBlog";
+import AdminPanel from "./Pages/AdminPanel";
 
 function App() {
   const location = useLocation(); // Hook to track route changes
@@ -32,25 +33,23 @@ function App() {
 
       <Routes>
         <Route path="/" element={<MeteorDemo />} />
-        <Route
-          path="/signin"
+        <Route path="/signin"
           element={
             <AuthRedirect>
               <SignIn />
             </AuthRedirect>
           }
         />
-        <Route
-          path="/login"
+        <Route path="/login"
           element={
             <AuthRedirect>
               <Login />
             </AuthRedirect>
           }
         />
+        <Route path="/admin/*" element={<AdminPanel />} />
         <Route path="/bloghome" element={<BlogHome />} />
-        <Route
-          path="/blog"
+        <Route path="/blog"
           element={
             <ProtectedRoute>
               <Blog/>
