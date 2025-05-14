@@ -70,7 +70,7 @@ export default function Navbar() {
                 Profile
               </Link>
               {isAdmin ? (
-                <Link to="/admin/*" className="block px-4 py-2 hover:bg-gray-100">
+                <Link to="/admin" className="block px-4 py-2 hover:bg-gray-100">
                 Admin Pannel
               </Link>
               ):("")}

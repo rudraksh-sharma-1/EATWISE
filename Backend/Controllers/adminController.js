@@ -17,9 +17,11 @@ import Blog from "../Models/Blog.js";
       // Step 1: Find the user
       const user = await User.findById(id);
       if (!user) return res.status(404).json({ message: 'User not found' });
+      
+      if(user.type === 'admin') return res.status(403).json({ message: 'Cannot delete admin user' });
   
       // Step 2: Delete all blogs created by the user
-      await Blog.deleteMany({ _id: { $in: user.blogs } });
+      await Blog.deleteMany({author: id});
   
       // Step 3: Delete the user
       await User.findByIdAndDelete(id);

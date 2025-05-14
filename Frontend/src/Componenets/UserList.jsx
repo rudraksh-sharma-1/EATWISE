@@ -36,10 +36,10 @@ function UserList() {
       });
 
       setUsers(users.filter((user) => user._id !== userId));
-      toast.success("User Delted");
+      toast.success("User Deleted");
     } catch (error) {
       /* console.error("Failed to delete user:", error); */
-      toast.error("Something went wrong. Please try again.");
+      toast.error(error.response?.data?.message || "Failed to delete user");
     }
   };
 
