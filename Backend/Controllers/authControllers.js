@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "User already exists" });
 
-    const apikey = process.env.ZERObounce_API_KEY;
+    /* const apikey = process.env.ZERObounce_API_KEY;
     const response = await axios.get("https://api.zerobounce.net/v2/validate", {
       params: {
         api_key: apikey,
@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
     });
 
     const result = response.data;
-    if (result.status === "valid") {
+    if (result.status === "valid") { */
       const user = new User({
         fullName,
         email,
@@ -42,9 +42,9 @@ export const registerUser = async (req, res) => {
 
       const token = generateToken(user);
      return res.status(201).json({ user, token });
-    } else {
+   /*  } else {
     return  res.status(400).json({ message: "Invalid email", result });
-    }
+    } */
   } catch (err) {
    return res.status(500).json({ error: err.message });
   }

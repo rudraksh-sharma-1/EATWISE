@@ -26,7 +26,7 @@ const Footer = React.memo(() => {
 
   const navigationItems = [
     { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
+    { name: "Services", href: "/dietchart" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "/bloghome" }
   ];
