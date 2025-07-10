@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "./Componenets/Navbar";
+import Navbar from "@/Componenets/Navbar.jsx";
 import Login from "./Pages/Login";
 import SignIn from "./Pages/Signin";
 import { ToastContainer } from 'react-toastify';
