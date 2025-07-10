@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import useAuthStore from "../store/AuthStore";
+import useAuthStore from "@/Store/AuthStore";
 
 export default function Navbar() {
   const [show, setShow] = useState(true);

@@ -1,4 +1,4 @@
-"use client";;
+
 import { memo } from "react";
 import React from "react";
 
