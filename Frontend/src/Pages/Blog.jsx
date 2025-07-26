@@ -1,4 +1,3 @@
-"use client";
 import {
   Dialog,
   DialogTrigger,
@@ -18,7 +17,6 @@ import { RippleButton } from "@/components/magicui/ripple-button";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
 import Editor from "@/Componenets/Editor";
-import axios from "axios";
 import instance from "../utils/axios.js";
 import useAuthStore from "../Store/AuthStore";
 

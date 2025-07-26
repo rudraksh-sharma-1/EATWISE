@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart } from "lucide-react";
-import axios from "axios";
 import moment from "moment";
 import useAuthStore from "@/Store/AuthStore";
 import instance from "../utils/axios.js";

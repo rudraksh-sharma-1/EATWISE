@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
@@ -7,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { RetroGrid } from "@/components/magicui/retro-grid";
 import { Heart } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import axios from "axios";
 import instance from "../utils/axios.js";
 import moment from "moment";
 

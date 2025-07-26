@@ -1,5 +1,4 @@
 // components/Navbar.tsx
-"use client";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
