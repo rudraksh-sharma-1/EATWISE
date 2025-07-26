@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import useAuthStore from "../store/AuthStore";
+import useAuthStore from "../Store/AuthStore";
 import { toast } from "react-toastify";
 import instance from "../utils/axios.js";
 
