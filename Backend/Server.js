@@ -12,7 +12,7 @@ dotenv.config();
 
 const allowedOrigins = [
   /* 'http://localhost:5173', */
-  'https://majro-front.vercel.app/',
+  'https://majro-front.vercel.app',
 ];
 
 app.use(cors({
