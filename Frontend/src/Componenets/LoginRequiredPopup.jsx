@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import usePopupStore from "../Store/PopupStore.js";
+import usePopupStore from "../Store/PopupStore.js"; // Adjusted import path to match your project structure
 
 const LoginRequiredPopup = () => {
   const { showLoginPopup, closeLoginPopup } = usePopupStore();
