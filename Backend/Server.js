@@ -11,9 +11,8 @@ const app = express();
 dotenv.config();
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://ecommerce-umber-five-95.vercel.app',
-  'https://admin-eight-flax.vercel.app'
+  /* 'http://localhost:5173', */
+  'https://majro-front.vercel.app/',
 ];
 
 app.use(cors({
