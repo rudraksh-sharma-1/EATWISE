@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../Store/AuthStore";
-import usePopupStore from "../store/popupStore";
+import usePopupStore from "../Store/PopupStore.js";
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuthStore();
