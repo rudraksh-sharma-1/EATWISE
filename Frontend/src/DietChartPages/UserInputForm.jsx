@@ -44,7 +44,7 @@ const UserInputForm = ({ onReceiveData }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/recommendations", {
+      const res = await fetch("https://eatwise-1.onrender.com/recommendations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
