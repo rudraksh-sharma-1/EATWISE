@@ -66,7 +66,7 @@ const UserInputForm = ({ onReceiveData }) => {
             shineColor={["#90C67C","#67AE6E","#328E6E","#A0C878","#DF9755","#EB5A3C",]}
             className="absolute inset-0 z-20 rounded-2xl" // Apply a higher z-index to ShineBorder
           />
-          <Card className="bg-[#E1EEBC] p-2 text-black shadow-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl relative z-10">
+          <Card className="bg-[#E1EEBC] p-2 text-black shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl relative z-10">
             <CardContent className="space-y-8 p-6">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Age input */}

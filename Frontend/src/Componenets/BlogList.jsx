@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import axios from "axios";
 import moment from "moment";
 import useAuthStore from "@/Store/AuthStore";
+import instance from "../utils/axios.js";
 
 
 const BlogList = () => {
@@ -15,7 +16,7 @@ const BlogList = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/blogs/all");
+        const res = await instance.get("/api/blogs/all");
         setPosts(res.data);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
@@ -30,7 +31,7 @@ const handleDeleteBlog = async (postId) => {
   if (!confirmDelete) return;
 
   try {
-    await axios.delete(`http://localhost:4000/api/admin/${postId}`, {
+    await instance.delete(`/api/admin/${postId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

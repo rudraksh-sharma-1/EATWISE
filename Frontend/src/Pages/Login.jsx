@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { ShineBorder } from "@/components/magicui/shine-border";
 import { Particles } from "@/components/magicui/particles";
 import useAuthStore from "../Store/AuthStore";
+import instance from "../utils/axios.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,8 +27,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const validateEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,29 +37,18 @@ function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await instance.post("/api/auth/login", { email, password });
 
-      const data = await res.json();
-      if (!res.ok) {
-        toast.error(data.message || "Login failed");
-        setErrorMsg(data.message || "Login failed");
-        return;
-      }
-
-      setToken(data.token);
-      setUser(data.user);
+      setToken(res.data.token);
+      setUser(res.data.user);
       toast.success("Login successful!");
       navigate("/");
-
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
-      setErrorMsg("Something went wrong. Please try again.");
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(message);
+      setErrorMsg(message);
     }
   };
 

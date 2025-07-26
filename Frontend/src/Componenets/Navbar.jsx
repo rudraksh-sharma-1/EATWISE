@@ -66,7 +66,7 @@ export default function Navbar() {
               {user?.fullName || "User"} ▼
             </button>
             <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
-              <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+              <Link to="/" className="block px-4 py-2 hover:bg-gray-100">
                 Profile
               </Link>
               {isAdmin ? (

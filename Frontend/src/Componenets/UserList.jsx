@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useAuthStore from "../store/AuthStore";
 import { toast } from "react-toastify";
+import instance from "../utils/axios.js";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ function UserList() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/admin/users", {
+        const res = await instance.get("/api/admin/users", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -29,7 +30,7 @@ function UserList() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:4000/api/admin/users/${userId}`, {
+      await instance.delete(`/api/admin/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

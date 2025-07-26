@@ -19,6 +19,7 @@ import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
 import Editor from "@/Componenets/Editor";
 import axios from "axios";
+import instance from "../utils/axios.js";
 import useAuthStore from "../Store/AuthStore";
 
 const CreateBlog = () => {
@@ -57,8 +58,8 @@ const CreateBlog = () => {
     formData.append("image", image);
 
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/blogs/add",
+      const res = await instance.post(
+        "/api/blogs/add",
         formData,
         {
           headers: {

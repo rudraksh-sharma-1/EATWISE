@@ -8,6 +8,7 @@ import { RetroGrid } from "@/components/magicui/retro-grid";
 import { Heart } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import axios from "axios";
+import instance from "../utils/axios.js";
 import moment from "moment";
 
 
@@ -18,7 +19,7 @@ const BlogHomePage = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/blogs/all"); // Replace with deployed URL if needed
+        const res = await instance.get("/api/blogs/all"); // Replace with deployed URL if needed
         setPosts(res.data);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);

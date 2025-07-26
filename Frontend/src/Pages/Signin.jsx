@@ -17,6 +17,7 @@ import { ShineBorder } from "@/components/magicui/shine-border";
 import { Particles } from "@/components/magicui/particles";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import instance from "../utils/axios.js";
 
 
 function SignIn() {
@@ -57,7 +58,7 @@ function SignIn() {
 
     try {
       const { fullName, email, password } = formData;
-      const res = await axios.post("http://localhost:4000/api/auth/register", {
+      const res = await instance.post("/api/auth/register", {
         fullName,
         email,
         password,

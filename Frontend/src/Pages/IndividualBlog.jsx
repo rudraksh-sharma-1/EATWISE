@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import instance from "../utils/axios.js";
 import { RetroGrid } from "@/components/magicui/retro-grid";
 import { LineShadowText } from "@/components/magicui/line-shadow-text";
 
@@ -13,7 +14,7 @@ const BlogDetailPage = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/blogs/blog/${id}`);
+        const res = await instance.get(`/api/blogs/blog/${id}`);
         setBlog(res.data);
         setLoading(false);
       } catch (error) {
