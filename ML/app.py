@@ -6,7 +6,7 @@ import os
 import random
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "https://majro-front.vercel.app"}})
 
 # ----------------- Load Indian Food Dataset -----------------
 generated_file = os.path.join(os.path.dirname(__file__), "indian_food_data.csv")
